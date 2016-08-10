@@ -4,6 +4,6 @@ head
 body
   h1 Robot User List
   ol
-    each obj, userid in users
+    each obj in users
       li
-        a(href='/user/' + userid) #{obj.fname} #{obj.lname}
+        a(href='/user/' + obj.userid) #{obj.fname} #{obj.lname}

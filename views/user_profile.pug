@@ -1,5 +1,5 @@
-- var name = rec.fname + ' ' + rec.lname
-- var url = 'https://api.adorable.io/avatars/150/' + userid
+- var name = obj.fname + ' ' + obj.lname
+- var url = 'https://api.adorable.io/avatars/150/' + obj.userid
 
 doctype html
 head
@@ -8,5 +8,5 @@ body
   h1 #{name}
   img(src=url)
   p
-    Profile viewed #{rec.views} times!
+    Profile viewed #{obj.views} times!
   a(href='/user') user list
