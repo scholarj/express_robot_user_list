@@ -4,18 +4,14 @@ let morgan = require('morgan')
 let path = require('path')
 let serverStatic = require('serve-static')
 let serveIndex = require('serve-index')
-let fs = require('fs')
-let mongo = require('mongodb').MongoClient
+let DBUser = require('./db').User
 
 let hostname = '0.0.0.0'  // Dont use localhost.
 let port = parseInt(process.env.PORT || 80)
 let production = (process.env.NODE_ENV === 'production')
 let staticDir = path.join(__dirname, '../static')
-let dataFile = path.join(__dirname, '../data.json')
 let tmplDir = path.join(__dirname, '../views')
-let dburi = 'mongodb://localhost:27017/robots'
 
-let data = []
 let app = express()
 app.use(morgan('combined'))  // Generates access log to stdout.
 
@@ -24,34 +20,18 @@ app.set('views', tmplDir)
 app.set('view engine', 'pug')
 
 // Helper functions.
-let verify_user = (req, res, next) => {
+let verifyUser = (req, res, next) => {
   let userid = req.params.userid.replace('.json', '')
-  let found = false
-  data.forEach((rec) => {
-    if (rec.userid === userid) found = true
-  })
-  found ? next() : res.redirect(`/error/${userid}`)
-}
-
-let loadUsersFromDB = (uri) => {
-  mongo.connect(uri, (err, db) => {
-    if (err) console.err(err)
-    let cursor = db.collection('users').find()  // find all.
-    cursor.each((err, doc) => {
-      if (err) {
-        console.err(err)
-      } else {
-        if (doc) {
-          data.push(doc)
-        } else {
-          db.close()
-          console.log(`Loaded ${data.length} user records from ${dburi}.\n`)
-        }
-      }
-    })
+  DBUser.findOne({userid: userid}, (err, user) => {
+    if (err) {
+      console.error(err)
+    } else if (user) {
+      next()
+    } else {
+      res.redirect(`/error/${userid}`)
+    }
   })
 }
-loadUsersFromDB(dburi)
 
 // Homepage.
 app.get('/', function (req, res) {
@@ -64,18 +44,25 @@ app.get('/', function (req, res) {
 
 // List all users with links to their profiles.
 app.get('/user', (req, res) => {
-  res.render('user', {users: data})
+  DBUser.find({}, (err, users) => {
+    err ? console.log(err) : res.render('user', {users: users})
+  })
 })
 
 // User profiles.
-app.get('/user/:userid', verify_user, (req, res) => {
-  let is_json = req.params.userid.match(/\.json$/)
+app.get('/user/:userid', verifyUser, (req, res) => {
+  let isJSON = req.params.userid.match(/\.json$/)
   let userid = req.params.userid.replace('.json', '')
-  data.forEach((rec) => {
-    if (rec.userid === userid) {
-      rec.views += 1
-      is_json ? res.json(rec)
-              : res.render('user_profile', {obj: rec})
+  DBUser.findOne({userid: userid}, (err, user) => {
+    if (err) {
+      console.error(err)
+    } else {
+      user.views += 1
+      DBUser.findOneAndUpdate({userid: userid}, {views: user.views}, (err, doc) => {
+        if (err) console.error(err)
+      })
+      isJSON ? res.json(user)
+             : res.render('user_profile', {obj: user})
     }
   })
 })

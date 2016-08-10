@@ -4,7 +4,7 @@
   "description": "Robots User List ultra-small app with Mongo DB backend using native connection.",
   "main": "src/server.js",
   "scripts": {
-    "lint": "eslint `find {src,test} |grep -e '.js'`",
+    "lint": "eslint `find {src,test} |grep '.js'`",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js"
@@ -15,6 +15,7 @@
   "dependencies": {
     "express": "^4.14.0",
     "mongodb": "^2.2.5",
+    "mongoose": "^4.5.8",
     "morgan": "^1.7.0",
     "path": "^0.12.7",
     "pug": "^2.0.0-beta4",
