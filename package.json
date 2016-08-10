@@ -1,7 +1,7 @@
 {
   "name": "tut_express",
-  "version": "1.0.0",
-  "description": "",
+  "version": "2.0.0",
+  "description": "Robots User List ultra-small app with Mongo DB backend using native connection.",
   "main": "src/server.js",
   "scripts": {
     "lint": "eslint `find {src,test} |grep -e '.js'`",
