@@ -1,5 +1,5 @@
 # express_robot_user_list
-Small sample express node app robots user list and profile views
+Ultra-small sample node/express/jade app. Robots user list and profile view. Local json data file.
 
 ## Setup
 
