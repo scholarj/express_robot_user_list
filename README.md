@@ -31,3 +31,7 @@ $> export PORT=3333
 $> npm run dev
 browser> http://localhost:3333
 ```
+
+### v3.0 with Mongo DB backend using mongoose ORM DB interface.
+
+Note that the setup steps are the same as v2.0.
