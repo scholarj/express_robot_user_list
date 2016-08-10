@@ -1,0 +1,30 @@
+{
+  "name": "tut_express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "lint": "eslint `find {src,test} |grep -e '.js'`",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "path": "^0.12.7",
+    "pug": "^2.0.0-beta4",
+    "serve-index": "^1.8.0",
+    "serve-static": "^1.11.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.2.2",
+    "eslint-config-standard": "^5.3.5",
+    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-standard": "^2.0.0",
+    "nodemon": "^1.10.0"
+  }
+}

@@ -1,0 +1,12 @@
+- var name = rec.fname + ' ' + rec.lname
+- var url = 'https://api.adorable.io/avatars/150/' + userid
+
+doctype html
+head
+  title= "User Profile"
+body
+  h1 #{name}
+  img(src=url)
+  p
+    Profile viewed #{rec.views} times!
+  a(href='/user') user list

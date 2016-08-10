@@ -1,0 +1,19 @@
+{
+  "users": {
+    "bob": {
+      "fname": "Spongbob",
+      "lname": "Squarepants",
+      "views": 0
+    },
+    "dsj": {
+      "fname": "Dave",
+      "lname": "Jones",
+      "views": 0
+    },
+    "jsmith": {
+      "fname": "Joe",
+      "lname": "Smith",
+      "views": 0
+    }
+  }
+}
